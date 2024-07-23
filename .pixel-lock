@@ -1,0 +1,19 @@
+#!/bin/bash
+rm /tmp/screen.png
+rm /tmp/text.png
+
+SCREEN=/tmp/screen.png
+TEXT=/tmp/text.png
+
+scrot /tmp/screen.png
+
+[ -f $TEXT ] || {
+    convert -size 1000x210 xc:transparent -font Inconsolata-Extra-Expanded-ExtraBold -pointsize 200 -fill red -gravity center -annotate +0+0 'LOCKED' $TEXT;
+    #convert $TEXT -alpha set -channel A -evaluate set 75% $TEXT
+}
+
+convert $SCREEN $TEXT -gravity center -geometry -1280+0 -composite $SCREEN
+convert $SCREEN $TEXT -gravity center -geometry +1280+0 -composite $SCREEN
+
+convert $SCREEN -scale 12.5% -scale 800% $SCREEN
+i3lock -u -i $SCREEN

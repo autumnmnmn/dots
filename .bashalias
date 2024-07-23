@@ -1,0 +1,80 @@
+alias src='source ~/.bashrc'
+alias cls='clear; ls'
+alias wipe='history -c; history -w; clear; cd ~;'
+alias scratch='cd $ABODE/scratch; find $ABODE/scratch -type f -delete'
+
+alias caps='xmodmap ~/.Xmodmap; sudo udevadm control --reload'
+
+alias gitt='git add .; git status'
+alias gdiff='git -c color.ui=always diff --cached | less -R'
+
+alias v='neovide'
+alias dup='alacritty --working-directory . &'
+
+alias nota='neovide $ABODE/notes'
+
+alias grep='grep --colour=auto'
+alias egrep='egrep --colour=auto'
+alias fgrep='fgrep --colour=auto'
+
+alias ls='ls --color=auto'
+alias ld='ls -ghoF | grep "^d"'
+alias la='ls -FA'
+alias ll='ls -ghoFA'
+alias lad='la | grep "/"'
+alias lld='ll | grep "^d"'
+alias lg='ls | grep -i'
+alias lag='la | grep -i'
+alias llg='ll | grep -i'
+
+alias pip='python -m pip'
+
+alias jp='cd ~/data0/code/python-scripts/jp; apy t231; jupyter lab;'
+
+alias cdstem='cd ~/data0/code/csharp/Stem'
+alias cdcode='cd ~/data0/code'
+alias cdpy='cd ~/data0/code/python-scripts'
+alias cdr='cd ~/data0/code/rust'
+alias cdfic='cd ~/data0/code/fic/'
+alias ficui='cd ~/data0/code/fic/ficui; npm run build; npm run built'
+alias sdapi='cd ~/data0/code/fic/sdapi; apy temp; python server.py'
+
+alias pentablet='/usr/lib/pentablet/pentablet'
+alias lay2='$ABODE/.screenlayout/2mon.sh; i3-msg restart'
+alias lay0='$ABODE/.screenlayout/main.sh; i3-msg restart'
+alias lay1='$ABODE/.screenlayout/left_plus_tablet.sh; i3-msg restart'
+
+alias balias='neovide $ABODE/.bashalias'
+alias brc='neovide ~/.bashrc'
+alias vrc='neovide ~/.config/nvim/init.vim'
+
+alias sus='systemctl suspend'
+alias off='shutdown now'
+alias reboot='shutdown now'
+
+alias cck='clear; cargo check'
+alias ck='cargo check'
+alias ccr='clear; cargo run'
+alias cr='cargo run'
+
+alias ,q=exit
+
+apy () {
+    source $PY_ENVS/$1/bin/activate
+    alias ,q=depy
+}
+alias lspy='ls $PY_ENVS'
+depy () {
+    deactivate
+    alias ,q=exit
+}
+
+assh () {
+    eval `ssh-agent`
+    ssh-add ~/.ssh/$1
+}
+
+lssh () {
+    ls ~/.ssh | grep .pub | sed 's/\.[^.]*$//'
+}
+

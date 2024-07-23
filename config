@@ -1,0 +1,341 @@
+# i3 config file (v4)
+# http://i3wm.org/docs/userguide.html
+
+# === basics ===
+
+set $mod Mod4
+font xft:URWGothic-Book 11
+default_border none
+default_floating_border none
+hide_edge_borders none
+
+# key to hold to drag floating windows
+floating_modifier $mod
+
+# no. no. no. absolutely not.
+focus_follows_mouse no
+
+bar {
+    i3bar_command $HOME/bars
+}
+
+gaps inner 4
+gaps top 24
+gaps left 8
+gaps right 8
+gaps bottom 24
+
+# draw borders around container only if it is not the only container on this workspace
+# no_gaps=only activate if the gap size to the edge of the screen is 0
+smart_borders no_gaps
+
+# === startup programs ===
+
+exec --no-startup-id start-pulseaudio-x11
+exec --no-startup-id pa-applet
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec_always --no-startup-id feh ~/data0/media/images/wallpapers/Active/ --randomize --bg-scale --no-fehbg
+exec --no-startup-id nm-applet
+exec --no-startup-id xfce4-power-manager
+exec --no-startup-id pamac-tray
+exec --no-startup-id clipit
+exec --no-startup-id xautolock -time 60 -locker ~/pixel-lock
+exec_always --no-startup-id ff-theme-util
+exec_always --no-startup-id fix_xcursor
+exec --no-startup-id ~/.screenlayout/main.sh
+exec --no-startup-id xmodmap ~/.Xmodmap
+exec --no-startup-id picom -b
+exec --no-startup-id xset b off
+
+# === default management ===
+
+for_window [class=".*"] border pixel 3
+
+# default workspaces
+assign [class="discord"] "chat"
+for_window [class="Spotify"] move to workspace "music"
+for_window [class="Blender"] move to workspace "3d"
+
+# floating apps
+for_window [class="feh"] floating enable border none
+for_window [title="alsamixer"] floating enable border none
+for_window [title="File Transfer*"] floating enable
+for_window [class="GParted"] floating enable border none
+for_window [class="Lxappearance"] floating enable border none
+for_window [class="Pavucontrol"] floating enable border none
+for_window [class="qt5ct"] floating enable sticky enable border normal
+for_window [class="Ants!"] floating enable border none
+for_window [class="Stem UI Test"] floating enable border none
+
+# === Bindings ===
+
+# terminal
+bindsym $mod+Return exec --no-startup-id alacritty
+bindsym $mod+Shift+Return exec --no-startup-id urxvt
+
+# editor
+bindsym $mod+v exec --no-startup-id PATH="$HOME/.nvm/versions/node/v18.17.1/bin:$PATH" neovide
+bindsym $mod+Shift+v exec --no-startup-id urxvt -e vim
+
+# browser
+bindsym $mod+Tab exec --no-startup-id firefox-nightly --private-window
+bindsym $mod+Shift+Tab exec --no-startup-id firefox-nightly
+#bindsym $mod+Tab exec --no-startup-id google-chrome-stable --incognito --disable-background-networking --dns-prefetch-disabled
+#bindsym $mod+Shift+Tab exec --no-startup-id google-chrome-stable --disable-background-networking --dns-prefetch-disabled
+
+# explorer
+bindsym $mod+x exec --no-startup-id pcmanfm
+# TODO ranger
+
+# launcher
+bindsym $mod+r exec --no-startup-id PATH="$HOME/.nvm/versions/node/v18.17.1/bin:$HOME/data0/tools/Zotero_linux-x86_64:$PATH" rofi -show run -display-run " > "
+
+# screenshots
+bindsym Print exec --no-startup-id i3-scrot
+bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
+bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
+
+# audio stuff
+bindsym $mod+Ctrl+m exec pavucontrol
+# TODO: mocp and/or vlc
+
+# transparency
+bindsym $mod+Ctrl+t exec --no-startup-id picom -b
+# dunst = notifications
+bindsym $mod+Shift+d --release exec --no-startup-id "killall dunst; exec notify-send 'Reloaded Dunst'"
+
+# launcher menu TODO get rid of this or make it useful
+set $mode_launch [p] Packages  -  [a] Audio  -  [k] Kill  -  [x] File Explorer  -  [m] Morc Menu  -  [u] Mocp  -  [space] Fix Keymap
+mode "$mode_launch" {
+    bindsym a exec --no-startup-id pavucontrol, mode "default"
+    bindsym k --release exec --no-startup-id xkill, mode "default"
+    bindsym u exec --no-startup-id alacritty -e 'mocp', mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# brightness controls
+# bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
+# bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
+
+# = i3 =
+
+bindsym Shift+Escape kill
+# reload i3 config
+bindsym $mod+Shift+r reload
+# fully restart i3 session (keeps user applications running)
+bindsym $mod+Ctrl+Shift+r restart
+
+# go-to / send-to for named workspaces
+bindsym $mod+m exec --no-startup-id i3-input -F 'workspace %s' -P 'Go to -> '
+bindsym $mod+Shift+m exec --no-startup-id i3-input -F 'move container to workspace %s' -P 'Move to -> '
+
+# send a window to the shadow realm
+bindsym $mod+Shift+comma move scratchpad
+# browse the contents of the shadow realm
+bindsym $mod+comma scratchpad show
+
+# tiling / floating
+bindsym $mod+0 floating toggle
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+
+bindsym $mod+f fullscreen toggle
+
+# split direction
+bindsym $mod+a split toggle
+bindsym $mod+Shift+a layout toggle split
+
+# focus the parent container, for advanced layout arrangement
+bindsym $mod+w focus parent
+
+# move between windows
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move current window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# move entire workspace between monitors
+bindsym $mod+Ctrl+Left move workspace to output left
+bindsym $mod+Ctrl+Right move workspace to output right
+bindsym $mod+Ctrl+h move workspace to output left
+bindsym $mod+Ctrl+l move workspace to output right
+
+# cycle thru workspaces
+# Mod1 = Alt
+bindsym Mod1+Right workspace next
+bindsym Mod1+Left workspace prev
+bindsym Mod1+l workspace next
+bindsym Mod1+h workspace prev
+
+# suspend / exit stuff. TODO clean this up
+bindsym Ctrl+Mod1+l exec --no-startup-id "$HOME/pixel-lock"
+bindsym $mod+Shift+Ctrl+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+bindsym $mod+End mode "$mode_system"
+set $mode_system (l)ock, (e)xit, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id i3exit lock, mode "default"
+    bindsym s exec --no-startup-id i3exit suspend, mode "default"
+    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
+    bindsym e exec --no-startup-id i3exit logout, mode "default"
+    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
+    bindsym r exec --no-startup-id i3exit reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+
+    # exit system mode: "Enter" or "Escape"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# Preset workspaces. TODO clean this up
+# Workspace names
+# to display names or symbols instead of plain workspace numbers you can use
+# something like: set $ws1 1:mail
+#                 set $ws2 2:
+set $ws1 11:1
+set $ws2 12:2
+set $ws3 13:3
+set $ws4 14:4
+set $ws5 15:5
+set $ws6 16:6
+set $ws7 17:7
+set $ws8 18:8
+set $ws9 19:9
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+mod2+KP_1 workspace $ws1
+bindsym $mod+mod2+KP_2 workspace $ws2
+bindsym $mod+mod2+KP_3 workspace $ws3
+bindsym $mod+mod2+KP_4 workspace $ws4
+bindsym $mod+mod2+KP_5 workspace $ws5
+bindsym $mod+mod2+KP_6 workspace $ws6
+bindsym $mod+mod2+KP_7 workspace $ws7
+bindsym $mod+mod2+KP_8 workspace $ws8
+bindsym $mod+mod2+KP_9 workspace $ws9
+
+# Move focused container to workspace
+bindsym $mod+Ctrl+1 move container to workspace $ws1
+bindsym $mod+Ctrl+2 move container to workspace $ws2
+bindsym $mod+Ctrl+3 move container to workspace $ws3
+bindsym $mod+Ctrl+4 move container to workspace $ws4
+bindsym $mod+Ctrl+5 move container to workspace $ws5
+bindsym $mod+Ctrl+6 move container to workspace $ws6
+bindsym $mod+Ctrl+7 move container to workspace $ws7
+bindsym $mod+Ctrl+8 move container to workspace $ws8
+bindsym $mod+Ctrl+9 move container to workspace $ws9
+
+bindsym $mod+Ctrl+mod2+KP_1 move container to workspace $ws1
+bindsym $mod+Ctrl+mod2+KP_2 move container to workspace $ws2
+bindsym $mod+Ctrl+mod2+KP_3 move container to workspace $ws3
+bindsym $mod+Ctrl+mod2+KP_4 move container to workspace $ws4
+bindsym $mod+Ctrl+mod2+KP_5 move container to workspace $ws5
+bindsym $mod+Ctrl+mod2+KP_6 move container to workspace $ws6
+bindsym $mod+Ctrl+mod2+KP_7 move container to workspace $ws7
+bindsym $mod+Ctrl+mod2+KP_8 move container to workspace $ws8
+bindsym $mod+Ctrl+mod2+KP_9 move container to workspace $ws9
+
+# Move to workspace with focused container
+bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2; workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3; workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4; workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
+
+bindsym $mod+Shift+mod2+KP_End move container to workspace $ws1; workspace $ws1
+bindsym $mod+Shift+mod2+KP_Down move container to workspace $ws2; workspace $ws2
+bindsym $mod+Shift+mod2+KP_Next move container to workspace $ws3; workspace $ws3
+bindsym $mod+Shift+mod2+KP_Left move container to workspace $ws4; workspace $ws4
+bindsym $mod+Shift+mod2+KP_Begin move container to workspace $ws5; workspace $ws5
+bindsym $mod+Shift+mod2+KP_Right move container to workspace $ws6; workspace $ws6
+bindsym $mod+Shift+mod2+KP_Home move container to workspace $ws7; workspace $ws7
+bindsym $mod+Shift+mod2+KP_Up move container to workspace $ws8; workspace $ws8
+bindsym $mod+Shift+mod2+KP_Prior move container to workspace $ws9; workspace $ws9
+
+set $mode_resize Resizing... (Esc to finish)
+bindsym $mod+s mode $mode_resize
+
+mode "$mode_resize" {
+        # These bindings trigger as soon as you enter the resize mode
+        bindsym h resize shrink width 5 px or 5 ppt
+        bindsym j resize grow height 5 px or 5 ppt
+        bindsym k resize shrink height 5 px or 5 ppt
+        bindsym l resize grow width 5 px or 5 ppt
+
+        bindsym Left resize shrink width 5 px or 5 ppt
+        bindsym Down resize grow height 5 px or 5 ppt
+        bindsym Up resize shrink height 5 px or 5 ppt
+        bindsym Right resize grow width 5 px or 5 ppt
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+# === Colors ===
+
+# TODO clean up
+
+set $void_main  #020A04
+set $dark_main  #042019
+set $mid_main   #0F4039
+set $light_main #FF0000
+#0F8079
+set $pale_main  #CCFFCC
+
+set $pale_off   #222222
+
+set $bright_2 #EEFFEE
+
+set $dark_main #000000
+set $mid_main #222222
+#443322
+set $light_main #00BBEE
+#AA4444
+set $pale_main #FEFFCC
+
+
+set $red #FE0000
+
+# theme colors
+# class                   border       backgr.      text indic.   child_border
+  client.focused          $mid_main    $mid_main    $pale_main    $light_main
+  client.focused_inactive $dark_main   $dark_main   $pale_main    $mid_main
+  client.unfocused        $void_main   $void_main   $light_main   $red
+  client.urgent           $void_main   $pale_off    $void_main    $red
+  client.placeholder      $void_main   $void_main   $void_main    $red
+#  client.focused          #556064 #556064 #80FFF9 #FDF6E3
+#  client.focused_inactive #2F3D44 #2F3D44 #1ABC9C #454948
+#  client.unfocused        #2F3D44 #2F3D44 #1ABC9C #454948
+#  client.urgent           #CB4B16 #FDF6E3 #1ABC9C #268BD2
+#  client.placeholder      #000000 #0c0c0c #ffffff #000000
+
+  client.background       #00FF00
+

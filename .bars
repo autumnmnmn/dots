@@ -1,0 +1,7 @@
+killall polybar
+
+for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+  MONITOR=$m polybar --reload topbar &
+  MONITOR=$m polybar --reload bottombar &
+done
+
