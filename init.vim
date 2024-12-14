@@ -137,7 +137,13 @@ set foldlevel=99
 let mapleader = ","
 
 "  replace word
-nnoremap <leader>r lbdei
+nnoremap <leader>re lbdei
+
+"  find & replace
+nnoremap <leader>rr :%s/\<<c-r><c-w>\>//g<left><left>
+
+"  word count
+nnoremap <leader>wc g<c-g>
 
 "  enter insert mode directly from visual mode
 vnoremap i <esc>i
@@ -176,7 +182,8 @@ inoremap <c-v> <esc>:set paste<return>a<c-r>+<esc>:set nopaste<return>a
 "  paste in normal mode
 nnoremap <c-v> :set paste<return>i<c-r>+<esc>:set nopaste<return>
 "  jj to quickly exit insert
-inoremap jj <esc>
+inoremap jj <esc>l
+inoremap ;; <esc>l
 
 "  cycle through completion options
 inoremap <leader><tab> <c-n>

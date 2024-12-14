@@ -11,6 +11,13 @@ alias gdiff='git -c color.ui=always diff --cached | less -R'
 alias v='neovide'
 alias dup='alacritty --working-directory . &'
 
+alias imsift='python ~/data0/code/python-scripts/util/sift.py'
+
+alias tris='~/data0/code/cpp/llama.cpp/main -m ~/data0/ml_models/lm_gguf/mistral-trismegistus-7b.Q6_K.gguf --log-disable --no-display-prompt -p'
+alias tris_chat='~/data0/code/cpp/llama.cpp/main -m ~/data0/ml_models/lm_gguf/mistral-trismegistus-7b.Q6_K.gguf --log-disable --no-display-prompt -cml'
+alias hermes='~/data0/code/cpp/llama.cpp/main -m ~/data0/ml_models/lm_gguf/Hermes-2-Pro-Mistral-7B.Q6_K.gguf --log-disable --no-display-prompt -p'
+alias hermes_chat='~/data0/code/cpp/llama.cpp/main -m ~/data0/ml_models/lm_gguf/Hermes-2-Pro-Mistral-7B.Q6_K.gguf --log-disable --no-display-prompt -cml'
+
 alias nota='neovide $ABODE/notes'
 
 alias grep='grep --colour=auto'
@@ -29,7 +36,7 @@ alias llg='ll | grep -i'
 
 alias pip='python -m pip'
 
-alias jp='cd ~/data0/code/python-scripts/jp; apy t231; jupyter lab;'
+alias jp='cd ~/data0/code/python-scripts/jp; apy torch201; jupyter lab;'
 
 alias cdstem='cd ~/data0/code/csharp/Stem'
 alias cdcode='cd ~/data0/code'

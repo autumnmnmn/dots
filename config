@@ -19,10 +19,10 @@ bar {
     i3bar_command $HOME/bars
 }
 
-gaps inner 4
+gaps inner 0
 gaps top 24
-gaps left 8
-gaps right 8
+gaps left 0
+gaps right 0
 gaps bottom 24
 
 # draw borders around container only if it is not the only container on this workspace
@@ -31,8 +31,6 @@ smart_borders no_gaps
 
 # === startup programs ===
 
-exec --no-startup-id start-pulseaudio-x11
-exec --no-startup-id pa-applet
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec_always --no-startup-id feh ~/data0/media/images/wallpapers/Active/ --randomize --bg-scale --no-fehbg
 exec --no-startup-id nm-applet
@@ -49,7 +47,7 @@ exec --no-startup-id xset b off
 
 # === default management ===
 
-for_window [class=".*"] border pixel 3
+for_window [class=".*"] border pixel 2
 
 # default workspaces
 assign [class="discord"] "chat"
@@ -119,6 +117,10 @@ mode "$mode_launch" {
 # bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
 # bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
 
+
+# wallpapers
+bindsym $mod+Shift+w exec --no-startup-id feh ~/data0/media/images/wallpapers/Active/ --randomize --bg-scale --no-fehbg
+
 # = i3 =
 
 bindsym Shift+Escape kill
@@ -137,14 +139,14 @@ bindsym $mod+Shift+comma move scratchpad
 bindsym $mod+comma scratchpad show
 
 # tiling / floating
-bindsym $mod+0 floating toggle
+bindsym $mod+0 floating toggle, border none
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 bindsym $mod+f fullscreen toggle
 
 # split direction
-bindsym $mod+a split toggle
+bindsym $mod+a split toggle, border pixel 2
 bindsym $mod+Shift+a layout toggle split
 
 # focus the parent container, for advanced layout arrangement
@@ -326,8 +328,8 @@ set $red #FE0000
 
 # theme colors
 # class                   border       backgr.      text indic.   child_border
-  client.focused          $mid_main    $mid_main    $pale_main    $light_main
-  client.focused_inactive $dark_main   $dark_main   $pale_main    $mid_main
+  client.focused          $void_main   $light_main   $pale_main    $pale_main
+  client.focused_inactive $void_main   $void_main   $pale_main    $void_main
   client.unfocused        $void_main   $void_main   $light_main   $red
   client.urgent           $void_main   $pale_off    $void_main    $red
   client.placeholder      $void_main   $void_main   $void_main    $red
