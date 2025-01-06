@@ -11,12 +11,12 @@ alias gdiff='git -c color.ui=always diff --cached | less -R'
 alias v='neovide'
 alias dup='alacritty --working-directory . &'
 
-alias imsift='python ~/data0/code/python-scripts/util/sift.py'
+alias imsift='python /data/0/code/python/util/sift.py'
 
-alias tris='~/data0/code/cpp/llama.cpp/main -m ~/data0/ml_models/lm_gguf/mistral-trismegistus-7b.Q6_K.gguf --log-disable --no-display-prompt -p'
-alias tris_chat='~/data0/code/cpp/llama.cpp/main -m ~/data0/ml_models/lm_gguf/mistral-trismegistus-7b.Q6_K.gguf --log-disable --no-display-prompt -cml'
-alias hermes='~/data0/code/cpp/llama.cpp/main -m ~/data0/ml_models/lm_gguf/Hermes-2-Pro-Mistral-7B.Q6_K.gguf --log-disable --no-display-prompt -p'
-alias hermes_chat='~/data0/code/cpp/llama.cpp/main -m ~/data0/ml_models/lm_gguf/Hermes-2-Pro-Mistral-7B.Q6_K.gguf --log-disable --no-display-prompt -cml'
+alias tris='/data/0/code/cpp/llama.cpp/main -m /data/0/ml_models/lm_gguf/mistral-trismegistus-7b.Q6_K.gguf --log-disable --no-display-prompt -p'
+alias tris_chat='/data/0/code/cpp/llama.cpp/main -m /data/0/ml_models/lm_gguf/mistral-trismegistus-7b.Q6_K.gguf --log-disable --no-display-prompt -cml'
+alias hermes='/data/0/code/cpp/llama.cpp/main -m /data/0/ml_models/lm_gguf/Hermes-2-Pro-Mistral-7B.Q6_K.gguf --log-disable --no-display-prompt -p'
+alias hermes_chat='/data/0/code/cpp/llama.cpp/main -m /data/0/ml_models/lm_gguf/Hermes-2-Pro-Mistral-7B.Q6_K.gguf --log-disable --no-display-prompt -cml'
 
 alias nota='neovide $ABODE/notes'
 
@@ -36,15 +36,15 @@ alias llg='ll | grep -i'
 
 alias pip='python -m pip'
 
-alias jp='cd ~/data0/code/python-scripts/jp; apy torch201; jupyter lab;'
+alias jp='cd /data/0/code/python-scripts/jp; apy torch201; jupyter lab;'
 
-alias cdstem='cd ~/data0/code/csharp/Stem'
-alias cdcode='cd ~/data0/code'
-alias cdpy='cd ~/data0/code/python-scripts'
-alias cdr='cd ~/data0/code/rust'
-alias cdfic='cd ~/data0/code/fic/'
-alias ficui='cd ~/data0/code/fic/ficui; npm run build; npm run built'
-alias sdapi='cd ~/data0/code/fic/sdapi; apy temp; python server.py'
+alias cdstem='cd /data/0/code/csharp/Stem'
+alias cdcode='cd /data/0/code'
+alias cdpy='cd /data/0/code/python-scripts'
+alias cdr='cd /data/0/code/rust'
+alias cdfic='cd /data/0/code/fic/'
+alias ficui='cd /data/0/code/fic/ficui; npm run build; npm run built'
+alias sdapi='cd /data/0/code/fic/sdapi; apy temp; python server.py'
 
 alias pentablet='/usr/lib/pentablet/pentablet'
 alias lay2='$ABODE/.screenlayout/2mon.sh; i3-msg restart'

@@ -63,7 +63,7 @@ if ${use_color} ; then
 	if [[ ${EUID} == 0 ]] ; then
 		PS1='\[\033[01;35m\][\h\[\033[01;36m\] \W\[\033[01;35m\]]\$\[\033[00m\] '
 	else
-		PS1='\[\033[00;33m\]!\!\[\033[01;33m\] \W\[\033[01;31m\] -> \[\033[00m\]'
+		PS1='\[\033[00;33m\]\[\033[01;33m\]\W\[\033[01;31m\]: \[\033[00m\]'
 	fi
 
 else
@@ -117,7 +117,7 @@ ex ()
 function gigs () { du -h $1 | grep -E "[0-9]G"; };
 
 export PATH="$ABODE/path:$PATH"
-export PATH="~/data0/tools/Zotero_linux-x86_64:$PATH"
+export PATH="/data/0/tools/Zotero_linux-x86_64:$PATH"
 
 source "$HOME/.secret"
 source "$ABODE/.bashalias"
@@ -127,8 +127,8 @@ source /usr/share/nvm/init-nvm.sh
 
 shopt -s cdable_vars
 export dots="$ABODE/dots"
-export data="$HOME/data0"
-export code="$HOME/data0/code"
-export py="$HOME/data0/code/python-scripts"
-export fic="$HOME/data0/code/fic"
+export data="/data/0"
+export code="/data/0/code"
+export py="/data/0/code/python"
+export fic="/data/0/code/fic"
 
