@@ -1,4 +1,21 @@
 
+
+
+local function fix_menu()
+    local choices = {"spaces", "quotes", "both"}
+    vim.ui.select(choices, {prompt = "fix"}, function(choice)
+        if not choice then return end
+        if choice == "spaces" or choice == "both" then
+            vim.cmd("call CleanupWhitespace()")
+        end
+        if choice == "quotes" or choice == "both" then
+            vim.cmd([[:%s/'\([^']*\)'/"\1"/g]])
+        end
+    end)
+end
+
+vim.keymap.set("n", "fix", fix_menu)
+
 --[[
 
 TODO keybindings for

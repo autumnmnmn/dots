@@ -34,15 +34,15 @@ smart_borders no_gaps
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec_always --no-startup-id feh /data/0/media/images/wallpapers/Active/ --randomize --bg-scale --no-fehbg
 exec --no-startup-id nm-applet
-exec --no-startup-id xfce4-power-manager
+#exec --no-startup-id xfce4-power-manager
 exec --no-startup-id pamac-tray
 exec --no-startup-id clipit
-exec --no-startup-id xautolock -time 60 -locker ~/pixel-lock
+#exec --no-startup-id xautolock -time 60 -locker ~/pixel-lock
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 exec --no-startup-id ~/.screenlayout/main.sh
 exec --no-startup-id xmodmap ~/.Xmodmap
-exec --no-startup-id picom -b
+# exec --no-startup-id picom -b
 exec --no-startup-id xset b off
 
 # === default management ===
@@ -64,6 +64,7 @@ for_window [class="Pavucontrol"] floating enable border none
 for_window [class="qt5ct"] floating enable sticky enable border normal
 for_window [class="Ants!"] floating enable border none
 for_window [class="Stem UI Test"] floating enable border none
+for_window [class="Cuda Canvas"] floating enable border none
 
 # === Bindings ===
 
@@ -124,6 +125,7 @@ bindsym $mod+Shift+w exec --no-startup-id feh /data/0/media/images/wallpapers/Ac
 # = i3 =
 
 bindsym Shift+Escape kill
+bindsym $mod+BackSpace kill
 # reload i3 config
 bindsym $mod+Shift+r reload
 # fully restart i3 session (keeps user applications running)

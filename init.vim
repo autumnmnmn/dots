@@ -1,3 +1,4 @@
+
 " Plugins
 
 call plug#begin('~/.local/share/nvim/plugged')
@@ -24,6 +25,9 @@ Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
 
+" wgsl
+Plug 'DingDean/wgsl.vim'
+
 " Rust
 "Plug 'rust-lang/rust.vim'
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -36,7 +40,7 @@ call plug#end()
 
 if exists("g:neovide")
     let g:neovide_scale_factor = 1
-    let g:neovide_transparency = 0.7
+    let g:neovide_opacity = 0.7
     let g:neovide_floating_blur_amount_x = 5.0
     let g:neovide_floating_blur_amount_y = 5.0
     let g:neovide_padding_left = 0
@@ -262,6 +266,28 @@ nnoremap <leader>q :q<return>
 "  ctrl-s to save, normal & insert modes
 nnoremap <C-s> :w<return>
 inoremap <c-s> <esc>:w<return>li
+
+"  clean up whitespace
+function! CleanupWhitespace()
+    " remove trailing whitespace
+    %s/\s\+$//ge
+    " ensure file starts with exactly one blank line
+    0put =''
+    " ensure file ends with exactly one blank line
+    $put =''
+    " remove multiple blank lines at start/end
+    %s/\%^\n\+/\r/ge
+    %s/\n\+\%$/\r/ge
+endfunction
+
+"nnoremap spaces :call CleanupWhitespace()<return>
+"nnoremap quotes :%s/'\([^']*\)'/"\1"/g<return>
+
+"function! QuickFixes()
+
+
+
+"endfunction
 
 " Goyo
 nnoremap <silent><leader>zen :Goyo<return>
