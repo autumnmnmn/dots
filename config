@@ -44,6 +44,7 @@ exec --no-startup-id ~/.screenlayout/main.sh
 exec --no-startup-id xmodmap ~/.Xmodmap
 # exec --no-startup-id picom -b
 exec --no-startup-id xset b off
+exec --no-startup-id xset s off -dpms
 
 # === default management ===
 
