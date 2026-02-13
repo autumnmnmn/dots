@@ -1,5 +1,10 @@
 
 
+vim.defer_fn(function()
+  local pid = vim.fn.getpid()
+  local socket = '/tmp/nvim-' .. pid .. '.socket'
+  vim.fn.serverstart(socket)
+end, 0)
 
 local function fix_menu()
     local choices = {"spaces", "quotes", "both"}
@@ -36,7 +41,6 @@ vim.diagnostic
 
 <C-x><C-o> for completion
 
-]]--
 
 vim.api.nvim_create_autocmd({"BufEnter"},
     {
@@ -58,4 +62,5 @@ require('lsp_lines').setup()
 vim.diagnostic.config({
     virtual_text = false,
 })
+]]--
 

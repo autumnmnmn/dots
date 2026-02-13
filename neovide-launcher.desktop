@@ -1,0 +1,7 @@
+
+[Desktop Entry]
+Type=Application
+Name=Neovide
+Exec=/home/ponder/ponder/neovide-launcher %F
+MimeType=text/*;application/json;application/javascript;application/xml;application/x-yaml;
+

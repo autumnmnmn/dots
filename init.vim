@@ -88,6 +88,8 @@ set guifont=Source\ Code\ Pro:h10
 set termguicolors
 set number
 set cursorline
+set colorcolumn=95
+" set textwidth=95 annoying automatic line break bullshit
 set signcolumn=yes
 
 "  tabbing
@@ -122,14 +124,26 @@ set wildmenu
 set wildmode=list:longest
 set foldmethod=indent
 set foldlevel=99
+set formatoptions-=ro
 
 " Highlighting
 
-"  highlight spaces at end of line (when not in insert mode)
-:highlight ExtraWhitespace ctermbg=red guibg=red
-:match ExtraWhitespace /\s\+\%#\@<!$/
-:au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-:au InsertLeave * match ExtraWhitespace /\s\+$/
+highlight ExtraWhitespace ctermbg=red guibg=red
+highlight OverLength ctermbg=darkred guibg=red
+
+augroup Whitespace
+  autocmd!
+  autocmd VimEnter,WinEnter * call matchadd('ExtraWhitespace', '\s\+$')
+  autocmd VimEnter,WinEnter * call matchadd('OverLength', '\%95v.\+')
+
+  autocmd InsertEnter * call clearmatches()
+  autocmd InsertEnter * call matchadd('ExtraWhitespace', '\s\+\%#\@<!$')
+  autocmd InsertEnter * call matchadd('OverLength', '\%95v.\+')
+
+  autocmd InsertLeave * call clearmatches()
+  autocmd InsertLeave * call matchadd('ExtraWhitespace', '\s\+$')
+  autocmd InsertLeave * call matchadd('OverLength', '\%95v.\+')
+augroup END
 
 :highlight DiagnosticVirtualTextError guifg=red
 :highlight DiagnosticVirtualTextWarn guifg=yellow

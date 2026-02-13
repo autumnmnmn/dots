@@ -1,3 +1,4 @@
+
 cp .Xmodmap ~/.Xmodmap
 cp .bashrc ~/.bashrc
 cp alacritty.toml ~/.config/alacritty/alacritty.toml
@@ -13,3 +14,6 @@ cp .bars ~/.bars
 cp .pixel-lock ~/.pixel-lock
 cp .bashalias ~/.bashalias
 cp config ~/.i3/config
+cp neovide-launcher.desktop ~/.local/share/applications/neovide-launcher.desktop
+cp neovide-launcher ~/ponder/neovide-launcher
+

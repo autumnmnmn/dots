@@ -1,0 +1,29 @@
+
+#!/bin/bash
+
+target="$1"
+best_socket=""
+best_depth=-1
+
+target="$(realpath "$target")"
+
+for pid in $(pgrep nvim); do
+    if cwd=$(readlink -f "/proc/$pid/cwd" 2>/dev/null); then
+        socket="/tmp/nvim-$pid.socket"
+
+        if [[ "$target" == "$cwd"* ]]; then
+            depth=$(awk -F/ '{print NF-1}' <<< "$cwd")
+            if (( depth > best_depth )); then
+                best_socket="$socket"
+                best_depth="$depth"
+            fi
+        fi
+    fi
+done
+
+if [[ -n "$best_socket" && -e "$best_socket" ]]; then
+    nvim --server "$best_socket" --remote-send "<Esc><S-h><S-h><S-h>:e $target<CR>"
+else
+    cd $(dirname $(realpath $target)) && neovide "$target"
+fi
+

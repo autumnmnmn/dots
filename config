@@ -78,8 +78,8 @@ bindsym $mod+v exec --no-startup-id PATH="$HOME/.nvm/versions/node/v18.17.1/bin:
 bindsym $mod+Shift+v exec --no-startup-id urxvt -e vim
 
 # browser
-bindsym $mod+Tab exec --no-startup-id firefox-nightly --private-window
-bindsym $mod+Shift+Tab exec --no-startup-id firefox-nightly
+bindsym $mod+Tab exec --no-startup-id firefox --private-window
+bindsym $mod+Shift+Tab exec --no-startup-id firefox
 #bindsym $mod+Tab exec --no-startup-id google-chrome-stable --incognito --disable-background-networking --dns-prefetch-disabled
 #bindsym $mod+Shift+Tab exec --no-startup-id google-chrome-stable --disable-background-networking --dns-prefetch-disabled
 
