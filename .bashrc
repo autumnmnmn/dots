@@ -7,6 +7,10 @@
 export EDITOR=~/ponder/neovide_launcher
 export VISUAL=~/ponder/neovide_launcher
 
+export PYT_OUT=/data/0/pyt/out
+export PYT_IN=/data/0/pyt/in
+export PYT_SKETCH=/data/0/pyt/sketch
+
 case ${TERM} in
 	xterm*|rxvt*|Eterm*|aterm|kterm|gnome*|interix|konsole*|alacritty)
 		PROMPT_COMMAND='echo -ne "\033]0;${USER} ${PWD/#$HOME/\~}\007"'
@@ -94,6 +98,8 @@ function gigs () { du -h $1 | grep -E "[0-9]G"; };
 
 export PATH="$ABODE/path:$PATH"
 export PATH="/data/0/tools/Zotero_linux-x86_64:$PATH"
+
+export PYTHONPYCACHEPREFIX="/data/0/code/python/.cache"
 
 source "$HOME/.secret"
 source "$ABODE/.bashalias"

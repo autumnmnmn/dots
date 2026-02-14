@@ -1,20 +1,36 @@
 
+local function find_and_replace()
+    vim.ui.input({ prompt = 'Find: ' }, function(find)
+        if not find then return end
+        vim.ui.input({ prompt = 'Replace: ' }, function(replace)
+            if not replace then return end
+            vim.cmd(string.format('%%s/%s/%s/g',
+                vim.fn.escape(find, '/\\'),
+                vim.fn.escape(replace, '/\\')))
+        end)
+    end)
+end
+
+vim.keymap.set("n", "far", find_and_replace)
 
 vim.defer_fn(function()
-  local pid = vim.fn.getpid()
-  local socket = '/tmp/nvim-' .. pid .. '.socket'
-  vim.fn.serverstart(socket)
+    local pid = vim.fn.getpid()
+    local socket = '/tmp/nvim-' .. pid .. '.socket'
+    vim.fn.serverstart(socket)
 end, 0)
 
 local function fix_menu()
-    local choices = {"spaces", "quotes", "both"}
+    local choices = {"spaces", "quotes", "tabs", "all"}
     vim.ui.select(choices, {prompt = "fix"}, function(choice)
         if not choice then return end
-        if choice == "spaces" or choice == "both" then
+        if choice == "spaces" or choice == "all" then
             vim.cmd("call CleanupWhitespace()")
         end
-        if choice == "quotes" or choice == "both" then
+        if choice == "quotes" or choice == "all" then
             vim.cmd([[:%s/'\([^']*\)'/"\1"/g]])
+        end
+        if choice == "tabs" or choice == "all" then
+            vim.cmd("set ts=2 sts=2 noet | retab! | set ts=4 sts=4 et | retab")
         end
     end)
 end

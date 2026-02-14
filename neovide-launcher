@@ -7,6 +7,11 @@ best_depth=-1
 
 target="$(realpath "$target")"
 
+if [[ "$target" == /data/0/pyt/sketch* ]]; then
+    rel="${target#/data/0/pyt/sketch}"
+    target="/data/0/code/python/snakepyt/pyt/sketch$rel"
+fi
+
 for pid in $(pgrep nvim); do
     if cwd=$(readlink -f "/proc/$pid/cwd" 2>/dev/null); then
         socket="/tmp/nvim-$pid.socket"
@@ -21,7 +26,7 @@ for pid in $(pgrep nvim); do
     fi
 done
 
-if [[ -n "$best_socket" && -e "$best_socket" ]]; then
+if [[ -n "$best_socket" && -S "$best_socket" ]]; then
     nvim --server "$best_socket" --remote-send "<Esc><S-h><S-h><S-h>:e $target<CR>"
 else
     cd $(dirname $(realpath $target)) && neovide "$target"

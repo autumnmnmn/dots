@@ -16,4 +16,5 @@ cp .bashalias ~/.bashalias
 cp config ~/.i3/config
 cp neovide-launcher.desktop ~/.local/share/applications/neovide-launcher.desktop
 cp neovide-launcher ~/ponder/neovide-launcher
+cp pytrc.py ~/.config/snakepyt/pytrc.py
 

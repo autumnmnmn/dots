@@ -70,7 +70,8 @@ for_window [class="Cuda Canvas"] floating enable border none
 # === Bindings ===
 
 # terminal
-bindsym $mod+Return exec --no-startup-id alacritty
+bindsym $mod+Return exec --no-startup-id alacritty --command /data/0/code/python/snakepyt/.venv/bin/python /data/0/code/python/snakepyt/pyt
+bindsym $mod+Shift+b exec --no-startup-id alacritty
 bindsym $mod+Shift+Return exec --no-startup-id urxvt
 
 # editor
