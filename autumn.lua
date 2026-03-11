@@ -20,7 +20,7 @@ vim.defer_fn(function()
 end, 0)
 
 local function fix_menu()
-    local choices = {"spaces", "quotes", "tabs", "all"}
+    local choices = {"spaces", "quotes", "all"}
     vim.ui.select(choices, {prompt = "fix"}, function(choice)
         if not choice then return end
         if choice == "spaces" or choice == "all" then
@@ -29,13 +29,44 @@ local function fix_menu()
         if choice == "quotes" or choice == "all" then
             vim.cmd([[:%s/'\([^']*\)'/"\1"/g]])
         end
-        if choice == "tabs" or choice == "all" then
-            vim.cmd("set ts=2 sts=2 noet | retab! | set ts=4 sts=4 et | retab")
-        end
     end)
 end
 
 vim.keymap.set("n", "fix", fix_menu)
+
+vim.paste = (function(overridden)
+    return function(lines, phase)
+        local is_2_spaced = false
+
+        for _, line in ipairs(lines) do
+            local space_count = #line:match("^%s*")
+            if space_count > 0 and space_count % 4 ~= 0 and space_count % 2 == 0 then
+                is_2_spaced = true
+                break
+            end
+        end
+
+        if is_2_spaced then
+            for i, line in ipairs(lines) do
+                lines[i] = line:gsub("^(%s*)", function(s)
+                    return string.rep(" ", #s * 2)
+                end)
+            end
+        end
+
+        overridden(lines, phase)
+    end
+end)(vim.paste)
+
+vim.filetype.add({
+    extension = { cl = "chatlog" },
+})
+
+
+
+
+
+
 
 --[[
 

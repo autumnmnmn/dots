@@ -17,4 +17,5 @@ cp ~/.i3/config .
 cp ~/.local/share/applications/neovide-launcher.desktop .
 cp ~/ponder/neovide-launcher .
 cp ~/.config/snakepyt/pytrc.py .
+sudo cp /usr/local/lib/sandbox-run .
 

@@ -132,23 +132,25 @@ highlight ExtraWhitespace ctermbg=red guibg=red
 highlight OverLength ctermbg=darkred guibg=red
 
 augroup Whitespace
-  autocmd!
-  autocmd VimEnter,WinEnter * call matchadd('ExtraWhitespace', '\s\+$')
-  autocmd VimEnter,WinEnter * call matchadd('OverLength', '\%95v.\+')
+    autocmd!
+    autocmd VimEnter,WinEnter * call matchadd('ExtraWhitespace', '\s\+$')
+    "autocmd VimEnter,WinEnter * call matchadd('OverLength', '\%95v.\+')
 
-  autocmd InsertEnter * call clearmatches()
-  autocmd InsertEnter * call matchadd('ExtraWhitespace', '\s\+\%#\@<!$')
-  autocmd InsertEnter * call matchadd('OverLength', '\%95v.\+')
+    autocmd InsertEnter * call clearmatches()
+    autocmd InsertEnter * call matchadd('ExtraWhitespace', '\s\+\%#\@<!$')
+    "autocmd InsertEnter * call matchadd('OverLength', '\%95v.\+')
 
-  autocmd InsertLeave * call clearmatches()
-  autocmd InsertLeave * call matchadd('ExtraWhitespace', '\s\+$')
-  autocmd InsertLeave * call matchadd('OverLength', '\%95v.\+')
+    autocmd InsertLeave * call clearmatches()
+    autocmd InsertLeave * call matchadd('ExtraWhitespace', '\s\+$')
+    "autocmd InsertLeave * call matchadd('OverLength', '\%95v.\+')
 augroup END
 
 :highlight DiagnosticVirtualTextError guifg=red
 :highlight DiagnosticVirtualTextWarn guifg=yellow
 :highlight DiagnosticVirtualTextInfo guifg=white
 :highlight DiagnosticVirtualTextHint guifg=#CCDDFF
+
+autocmd BufRead,BufNewFile .bashalias setfiletype bash
 
 " Keymapping
 

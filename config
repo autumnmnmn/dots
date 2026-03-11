@@ -70,13 +70,17 @@ for_window [class="Cuda Canvas"] floating enable border none
 # === Bindings ===
 
 # terminal
-bindsym $mod+Return exec --no-startup-id alacritty --command /data/0/code/python/snakepyt/.venv/bin/python /data/0/code/python/snakepyt/pyt
-bindsym $mod+Shift+b exec --no-startup-id alacritty
+bindsym $mod+Return exec --no-startup-id PYTHONPYCACHEPREFIX="/data/0/code/python/.cache" alacritty --command /data/0/code/python/snakepyt/.venv/bin/python /data/0/code/python/snakepyt/pyt
+bindsym $mod+semicolon exec --no-startup-id alacritty
+bindsym $mod+apostrophe exec --no-startup-id alacritty --command /data/0/code/python/snakepyt/.venv/bin/python -q
 bindsym $mod+Shift+Return exec --no-startup-id urxvt
 
 # editor
 bindsym $mod+v exec --no-startup-id PATH="$HOME/.nvm/versions/node/v18.17.1/bin:$PATH" neovide
 bindsym $mod+Shift+v exec --no-startup-id urxvt -e vim
+
+# signal
+bindsym $mod+Shift+s exec --no-startup-id signal-desktop
 
 # browser
 bindsym $mod+Tab exec --no-startup-id firefox --private-window
