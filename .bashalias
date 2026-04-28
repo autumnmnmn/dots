@@ -13,11 +13,6 @@ alias dup='alacritty --working-directory . &'
 
 alias imsift='python /data/0/code/python/util/sift.py'
 
-alias tris='/data/0/code/cpp/llama.cpp/main -m /data/0/ml_models/lm_gguf/mistral-trismegistus-7b.Q6_K.gguf --log-disable --no-display-prompt -p'
-alias tris_chat='/data/0/code/cpp/llama.cpp/main -m /data/0/ml_models/lm_gguf/mistral-trismegistus-7b.Q6_K.gguf --log-disable --no-display-prompt -cml'
-alias hermes='/data/0/code/cpp/llama.cpp/main -m /data/0/ml_models/lm_gguf/Hermes-2-Pro-Mistral-7B.Q6_K.gguf --log-disable --no-display-prompt -p'
-alias hermes_chat='/data/0/code/cpp/llama.cpp/main -m /data/0/ml_models/lm_gguf/Hermes-2-Pro-Mistral-7B.Q6_K.gguf --log-disable --no-display-prompt -cml'
-
 alias nota='neovide $ABODE/notes'
 
 alias grep='grep --colour=auto'

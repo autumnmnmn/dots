@@ -8,7 +8,7 @@ export EDITOR=~/ponder/neovide_launcher
 export VISUAL=~/ponder/neovide_launcher
 
 case ${TERM} in
-	xterm*|rxvt*|Eterm*|aterm|kterm|gnome*|interix|konsole*|alacritty)
+	xterm*|rxvt*|Eterm*|aterm|kterm|gnome*|interix|konsole*|alacritty|linux)
 		PROMPT_COMMAND='echo -ne "\033]0;${USER} ${PWD/#$HOME/\~}\007"'
 		;;
 	screen*)
@@ -17,11 +17,10 @@ case ${TERM} in
 esac
 
 case ${TERM} in
-    rxvt-unicode-256color|alacritty)
+    rxvt-unicode-256color|alacritty|linux)
         use_color=true
         ;;
     *)
-        echo [No color for \$TERM=${TERM}]
         use_color=false
         ;;
 esac
@@ -109,4 +108,5 @@ export data="/data/0"
 export code="/data/0/code"
 export py="/data/0/code/python"
 export fic="/data/0/code/fic"
+
 

@@ -1,4 +1,7 @@
 
+vim.o.ignorecase = true
+vim.o.smartcase = true
+
 local function find_and_replace()
     vim.ui.input({ prompt = 'Find: ' }, function(find)
         if not find then return end
@@ -62,11 +65,18 @@ vim.filetype.add({
     extension = { cl = "chatlog" },
 })
 
+vim.keymap.set("v", ">", ">gv")
+vim.keymap.set("v", "<", "<gv")
 
 
+require('hbac').setup({
+    autoclose = true,
+    threshold = 10,
+})
 
+require('telescope').setup({})
 
-
+require('buffer_view')
 
 --[[
 

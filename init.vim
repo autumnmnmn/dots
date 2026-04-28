@@ -6,12 +6,17 @@ call plug#begin('~/.local/share/nvim/plugged')
 " General
 Plug 'preservim/nerdtree'
 Plug 'scrooloose/nerdcommenter'
-Plug 'tmhedberg/SimpylFold'
+"Plug 'tmhedberg/SimpylFold'
 Plug 'Maan2003/lsp_lines.nvim'
+Plug 'axkirillov/hbac.nvim'
 
 "  fuzzy find
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+
+" dependency for telescope
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 
 " Appearance
 Plug 'vim-airline/vim-airline'
@@ -23,7 +28,6 @@ Plug 'junegunn/limelight.vim'
 " Web
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
-Plug 'evanleck/vim-svelte', {'branch': 'main'}
 
 " wgsl
 Plug 'DingDean/wgsl.vim'
@@ -33,6 +37,8 @@ Plug 'DingDean/wgsl.vim'
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
+
+let mapleader = ","
 
 :lua require('autumn')
 
@@ -47,7 +53,7 @@ if exists("g:neovide")
     set linespace=1
 endif
 
-let g:SimpylFold_docstring_preview=1
+" let g:SimpylFold_docstring_preview=1
 
 let g:NERDTreeWinPos = 'right'
 let g:NERDTreeFileLines = 1
@@ -154,7 +160,6 @@ autocmd BufRead,BufNewFile .bashalias setfiletype bash
 
 " Keymapping
 
-let mapleader = ","
 
 "  replace word
 nnoremap <leader>re lbdei
@@ -171,7 +176,8 @@ vnoremap i <esc>i
 vnoremap <c-c> "+y
 
 "  ctrl+f to find files
-nnoremap <c-f> :Files<cr>
+nnoremap <c-f> :Telescope find_files<cr>
+nnoremap <c-s-f> :Telescope live_grep<cr>
 
 "  alt+direction to move lines up/down
 nnoremap <silent><m-j> mz:m+<return>`z
@@ -220,7 +226,8 @@ inoremap <leader><s-tab> <c-p>
 nnoremap <leader>. ``
 
 "  nerdtree - maybe make this a 2-key command instead of 3
-nnoremap <silent><leader>nt :NERDTreeToggle<return>
+" migrated to lua w/ wrapper for buffers
+" nnoremap <silent><leader>nt :NERDTreeToggle<return>
 
 "  some niceties for editing this file
 nnoremap <leader>src :source ~/.config/nvim/init.vim<return>

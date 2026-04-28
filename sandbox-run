@@ -2,7 +2,7 @@
 
 AGENT_HOME="/data/2/agents"
 
-AGENT_SANDBOX_PROGRAMS=(python)
+AGENT_SANDBOX_PROGRAMS=(python bash ls find stat file cat rg sed awk mkdir mv cp rm rmdir ffmpeg nvidia-smi)
 
 AGENT_SANDBOX_ENV=(
     PYTHON_HISTORY=/dev/null
@@ -21,20 +21,25 @@ done
 
 if ! $allowed; then
         echo "error: program '$program' is not in the whitelist" >&2
-        return 1
+        exit 1
 fi
 
 if ! id "$agent" &>/dev/null; then
         echo "error: user '$agent' does not exist" >&2
-        return 1
+        exit 1
 fi
 
 if ! id -nG "$agent" | grep -qw "sandbox-access"; then
         echo "error: user '$agent' is not in the sandbox-access group" >&2
-        return 1
+        exit 1
 fi
 
+
 # ========  Set up environment  ======== #
+
+if [[ "$program" == "python" ]]; then
+    program="/data/2/agents/.venv/bin/python"
+fi
 
 setenv_flags=()
 for env_var in "${AGENT_SANDBOX_ENV[@]}"; do
@@ -55,20 +60,32 @@ sudo systemd-run --quiet --uid="$agent" --pipe --wait \
         --property=RemoveIPC=true \
         --property=ProtectSystem=strict \
         --property=ProtectHome=true \
-        --property=PrivateDevices=true \
+        --property=PrivateDevices=false \
         --property=BindPaths="$AGENT_HOME/$agent" \
+	--property=BindReadOnlyPaths="$AGENT_HOME/.venv" \
+	--property=BindPaths=/dev/nvidiactl \
+	--property=BindPaths=/dev/nvidia0 \
+	--property=BindPaths=/dev/nvidia1 \
+	--property=BindPaths=/dev/nvidia-modeset \
+	--property=BindReadOnlyPaths=/dev/nvidia-caps/nvidia-cap1 \
+	--property=BindReadOnlyPaths=/dev/nvidia-caps/nvidia-cap2 \
+	--property=BindPaths=/dev/nvidia-uvm \
+	--property=BindPaths=/dev/nvidia-uvm-tools \
         --property=NoNewPrivileges=true \
         --property=CapabilityBoundingSet= \
         --property=MemoryMax=32G \
         --property=CPUQuota=20% \
-        --property=TasksMax=32 \
+        --property=TasksMax=64 \
         --property=PrivateUsers=true \
         --property=ProtectProc=invisible \
-        --property=ProcSubset=pid \
+        --property=ProcSubset=all \
         --property=ProtectKernelTunables=true \
         --property=ProtectKernelModules=true \
         --property=ProtectControlGroups=true \
-        --property=SystemCallFilter=@system-service \
+	--property=SystemCallFilter=@system-service \
+	--property=SystemCallFilter=@io-event \
+	--property=SystemCallFilter=@file-system \
+	--property=SystemCallFilter=@process \
         --property=SystemCallErrorNumber=EPERM \
         --property=RestrictAddressFamilies=AF_UNIX \
         --property=LockPersonality=true \
